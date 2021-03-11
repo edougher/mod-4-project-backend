@@ -1,4 +1,11 @@
 class AppointmentsController < ApplicationController
+    
+    def show 
+        appts = Appointment.where(user_id: params[:id])
+        render json: appts
+    end
+    
+    
     def create
         appt = Appointment.create(
             user_id: params[:user_id], 

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     def create
-        user = User.create(username: params[:email])
+        user = User.find_or_create_by(username: params[:email])
         if user
             render json: user
         else
