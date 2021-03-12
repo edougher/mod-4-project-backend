@@ -16,6 +16,11 @@ class AppointmentsController < ApplicationController
         )
         render json: appt
     end
+
+    def destroy
+        Appointment.find(params[:id]).destroy
+        render json: {delete: 'success', id: params[:id]}
+    end
     
     
     def create
