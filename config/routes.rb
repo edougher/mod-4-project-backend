@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   post '/user', to: 'users#create'
   post '/appointment', to: 'appointments#create'
   get '/appointments/:id', to: 'appointments#show'
+  patch '/appointments/:id', to: 'appointments#edit' 
 end

@@ -4,6 +4,18 @@ class AppointmentsController < ApplicationController
         appts = Appointment.where(user_id: params[:id])
         render json: appts
     end
+
+    def edit
+        appt = Appointment.find(params[:id])
+        appt.update( 
+            width: params[:width], 
+            height: params[:height], 
+            location: params[:location], 
+            note: params[:note],
+            status: params[:status]
+        )
+        render json: appt
+    end
     
     
     def create
