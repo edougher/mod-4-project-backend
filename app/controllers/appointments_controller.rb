@@ -9,7 +9,8 @@ class AppointmentsController < ApplicationController
         appt = Appointment.find(params[:id])
         appt.update( 
             width: params[:width], 
-            height: params[:height], 
+            height: params[:height],
+            colors: params[:colors],
             location: params[:location], 
             note: params[:note],
             status: params[:status]
@@ -19,13 +20,14 @@ class AppointmentsController < ApplicationController
 
     def destroy
         Appointment.find(params[:id]).destroy
-        render json: {delete: 'success', id: params[:id]}
+        render json: {delete_msg: 'delete success', appt_id: params[:id]}
     end
     
     
     def create
         appt = Appointment.create(
-            user_id: params[:user_id], 
+            user_id: params[:user_id],
+            colors: params[:colors],
             width: params[:width], 
             height: params[:height], 
             location: params[:location], 
