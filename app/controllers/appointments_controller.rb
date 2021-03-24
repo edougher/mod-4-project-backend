@@ -5,6 +5,23 @@ class AppointmentsController < ApplicationController
         render json: appts
     end
 
+    def update
+        appt = Appointment.find(params[:id])
+        appt.update(
+            time: params[:time],
+            cost: params[:cost],
+            artistComments: params[:comments],
+            status: 'approved'
+        )
+        newComments = {
+            time: appt.time,
+            cost: appt.cost,
+            comments: appt.artistComments,
+            status: appt.status
+        }
+        render json: newComments
+    end
+
     def edit
         appt = Appointment.find(params[:id])
         appt.update( 
