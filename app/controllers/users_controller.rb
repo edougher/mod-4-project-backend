@@ -1,15 +1,18 @@
 class UsersController < ApplicationController
     
     def show
+        
         username = params[:username] + '.com'
         user = User.find_by(username: username)
         if user.username == "admin@d.com"
             appts = Appointment.all
-            #byebug
             render json: {user: user, appts: appts}
         elsif user && user.appointments
-            appts = user.appointments            
-            render json: {user: user, appts: appts}
+            #allAdventures = all.map {|x|{adventure: x, image: rails_blob_path(x.image)}}
+            #appts = user.appointments.map{|x| x.image.attached? ? x : nil }
+            appts = Appointment.where(user_id: user.id)
+            apptsAndImgs = appts.map{|x| {appt: x, firebase_image_urls: x.firebase_image_urls}}
+            render json: {user: user, appts: apptsAndImgs}
         else 
             appts = nil
             render json: {error: 'Invalid username or password.'}

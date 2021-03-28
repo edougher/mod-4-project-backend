@@ -2,6 +2,7 @@ class AppointmentsController < ApplicationController
     
     def show 
         appts = Appointment.where(user_id: params[:id])
+        
         render json: appts
     end
 
@@ -49,7 +50,8 @@ class AppointmentsController < ApplicationController
             height: params[:height], 
             location: params[:location], 
             note: params[:comments],
-            status: params[:status])
+            status: params[:status],
+            )
         if appt
             render json: appt
         else

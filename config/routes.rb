@@ -13,5 +13,7 @@ Rails.application.routes.draw do
 
   post '/dates', to: 'open_dates#create'
   get '/dates', to: 'open_dates#index'
+
+  post '/image', to: 'image#create'
   
 end

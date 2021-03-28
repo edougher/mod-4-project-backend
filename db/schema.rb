@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_23_234639) do
+ActiveRecord::Schema.define(version: 2021_03_27_031703) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer "user_id"
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(version: 2021_03_23_234639) do
     t.integer "time"
     t.integer "cost"
     t.text "artistComments"
+  end
+
+  create_table "firebase_image_urls", force: :cascade do |t|
+    t.text "image_url"
+    t.integer "appointment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appointment_id"], name: "index_firebase_image_urls_on_appointment_id"
   end
 
   create_table "open_dates", force: :cascade do |t|
@@ -49,4 +57,5 @@ ActiveRecord::Schema.define(version: 2021_03_23_234639) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "firebase_image_urls", "appointments"
 end
