@@ -6,10 +6,9 @@ class UsersController < ApplicationController
         user = User.find_by(username: username)
         if user.username == "admin@d.com"
             appts = Appointment.all
-            render json: {user: user, appts: appts}
+            apptsAndImgs = appts.map{|x| {appt: x, firebase_image_urls: x.firebase_image_urls}}
+            render json: {user: user, appts: apptsAndImgs}
         elsif user && user.appointments
-            #allAdventures = all.map {|x|{adventure: x, image: rails_blob_path(x.image)}}
-            #appts = user.appointments.map{|x| x.image.attached? ? x : nil }
             appts = Appointment.where(user_id: user.id)
             apptsAndImgs = appts.map{|x| {appt: x, firebase_image_urls: x.firebase_image_urls}}
             render json: {user: user, appts: apptsAndImgs}

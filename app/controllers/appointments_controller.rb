@@ -1,9 +1,14 @@
 class AppointmentsController < ApplicationController
     
     def show 
-        appts = Appointment.where(user_id: params[:id])
-        
-        render json: appts
+        user = User.find(params[:id])
+        if(user.username === "admin@d.com")
+            appts = Appointment.all
+            render json: appts
+        else
+            appts = Appointment.where(user_id: params[:id])
+            render json: appts
+        end
     end
 
     def update
