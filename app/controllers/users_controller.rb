@@ -6,12 +6,13 @@ class UsersController < ApplicationController
         user = User.find_by(username: username)
         if user.username == "admin@d.com"
             appts = Appointment.all
-            apptsAndImgs = appts.map{|x| {appt: x, firebase_image_urls: x.firebase_image_urls}}
-            render json: {user: user, appts: apptsAndImgs}
+            imgs = appts.map{|x| x.firebase_image_urls}
+            render json: {user: user, appts: appts, imgs: imgs}
         elsif user && user.appointments
             appts = Appointment.where(user_id: user.id)
-            apptsAndImgs = appts.map{|x| {appt: x, firebase_image_urls: x.firebase_image_urls}}
-            render json: {user: user, appts: apptsAndImgs}
+            imgs = appts.map{|x| x.firebase_image_urls}
+            #return images seperately and filter them in the from.
+            render json: {user: user, appts: appts, imgs: imgs}
         else 
             appts = nil
             render json: {error: 'Invalid username or password.'}
@@ -41,11 +42,6 @@ class UsersController < ApplicationController
         user = User.find_or_create_by(username: params[:email])
         appts = user.appointments
 
-        #if(user.username)
-#
-        #else
-        #end
-        
         if user
             render json: {user: user, password: params[:password], appts: appts}
         else
